@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -55,6 +56,19 @@ public class ChatController extends Socket {
                 }catch(IOException e){
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    @OnClose
+    public void onClose(Session recieveSession , @PathParam(value="userId") String userId){
+        session.remove(recieveSession);
+
+        for(int i = 0; i< session.size(); i++){
+            try{
+                session.get(i).getBasicRemote().sendText(userId + "님이 채팅방을 나갔습니다");
+            }catch(IOException e){
+                e.printStackTrace();
             }
         }
     }

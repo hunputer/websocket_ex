@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="보낼 메세지를 입력하세요." class="content">
+    <button type="button" value="전송" class="sendBtn" onclick="sendMsg()">전송</button>
+    <div>
+        <span>메세지</span>
+        <div class="msgArea"></div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script>
+    let userId = prompt("what's your name?");
+
+    let socket = new WebSocket("ws://localhost:8080/chat/" + userId);
+
+    socket.onopen = function (e){
+        console.log("open server!")
+    }
+
+    socket.onerror = function(e){
+        console.log(e);
+    }
+
+    socket.onmessage = function(e){
+        console.log(e.data);
+        let msgArea = document.querySelector(".msgArea");
+        let newMsg = document.createElement("div");
+        newMsg.innerText=e.data;
+        msgArea.append(newMsg);
+        let cur_session = '${userid}';
+        console.log(cur_session);
+    }
+
+    function sendMsg(){
+        let content=document.querySelector('.content').value;
+        socket.send(content);
+    }
+
+</script>
+</html>
