@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
+import javax.websocket.Session;
+
 @Controller
 public class MainController {
 
