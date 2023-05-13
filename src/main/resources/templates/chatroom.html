@@ -16,7 +16,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script>
-    let userId = prompt("what's your name?");
+    let userId = prompt("닉네임을 입력하세요");
 
     let socket = new WebSocket("ws://localhost:8080/chat/" + userId);
 
