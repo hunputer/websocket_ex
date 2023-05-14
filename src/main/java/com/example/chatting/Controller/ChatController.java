@@ -70,6 +70,7 @@ public class ChatController extends Socket {
             }catch(IOException e){
                 e.printStackTrace();
             }
+
         }
     }
 
